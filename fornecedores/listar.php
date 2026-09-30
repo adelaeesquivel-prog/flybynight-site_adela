@@ -1,3 +1,12 @@
+<?php
+//fornecedore/listar.php
+require_once "../src/fornecedor_crud.php";
+ 
+// Chamando a função (e pasando os dados da conexão), e recebendo/guardando o array com os dados dos fornecedores
+$fornecedores = buscarFornecedores($conexao);
+ 
+/*  var_dump($fornecedores);*/
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -29,7 +38,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Aqui serão geradas as linhas com os dados e as ações Editar e Excluir de cada registro. -->
+                    <?php foreach($fornecedores as $fornecedor): ?>    
+                  <tr>
+                    <td> <?= $fornecedor["id"] ?></td>
+                    <td> <?= $fornecedor["nome"] ?></td>
+                    <td> 
+                <!-- Alem  de definir a pagina  a ser aberta/navegada (no caso, editar com php), tambem e necessario "informar" a pagina com qual registro ela ira trabalhar. Por isso, criamos o parametro (?id) e aplicamos a ele o valor dinamico (id)do fornecedor -->
+                        <a href="editar.php?id=<?= $fornecedor["id"]?>">Editar</a>
+                        <a href="excluir.php" class="excluir">Excluir</a>
+                    </td>
+                  </tr>
+              <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
