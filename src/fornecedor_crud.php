@@ -48,7 +48,7 @@ function inserirFornecedor(PDO $conexao, string $nome): void {
     $consulta = $conexao->prepare($sql);
 
     //atribuição do valor recebido (em id)ao parametro nomeado (:id)
-    $conexao->bindValue (":id", $id);
+    $consulta->bindValue(":id", $id);
 
     //Execução da consulta
     $consulta->execute();
