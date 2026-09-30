@@ -1,3 +1,10 @@
+<?php
+//fornecedore editar.php
+//acessar a url e pegar o valor parametro (id) existente nela
+$id = $_GET ['id'];
+
+echo $id;
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
