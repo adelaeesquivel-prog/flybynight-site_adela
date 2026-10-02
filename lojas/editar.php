@@ -1,3 +1,19 @@
+<?php
+require_once "../src/loja_crud.php";
+
+$id = $_GET ['id'];
+$loja = buscarLojaPorId($conexao, $id);
+
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    
+    $nome = $_POST['nome'];
+    atualizarLoja($conexao, $id, $nome);
+    header("location:listar.php");
+    exit;
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -19,9 +35,10 @@
         <!-- Modelo visual: os campos não são enviados nem persistidos. -->
         <!-- Os campos serão preenchidos com os dados do registro selecionado. -->
         <form action="" method="post">
+           <input type="hidden" name="id" value="<?= $loja['id'] ?>">
             <div>
                 <label for="nome">Nome:</label>
-                <input type="text" name="nome" id="nome" maxlength="100" required>
+                <input value="<?= $loja['nome'] ?>" type="text" name="nome" id="nome" maxlength="100" required>
             </div>
             <button type="submit">Atualizar</button>
         </form>

@@ -1,3 +1,12 @@
+<?php
+require_once "../src/loja_crud.php";
+if($_SERVER['REQUEST_METHOD'] === "POST"){
+    $nome = $_POST ['nome'];
+    inserirLojas($conexao, $nome);
+    header("location:listar.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 

@@ -76,7 +76,7 @@ function inserirFornecedor(PDO $conexao, string $nome): void {
  }
 
 //Usada em fornecedores/excluir.php
-function excluirFornecedor(PDO $conexao, int $id , string $nome):void
+function excluirFornecedor(PDO $conexao, int $id):void
 {
     $sql = "DELETE FROM fornecedores WHERE id = :id";
     $consulta = $conexao ->prepare($sql);
