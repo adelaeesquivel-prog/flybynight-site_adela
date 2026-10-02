@@ -37,7 +37,7 @@ $lojas = buscarLojas($conexao);
                     </tr>
                 </thead>
                 <tbody>
-                      <?php foreach($lojas as $loja): ?>    
+              <?php foreach($lojas as $loja): ?>    
                   <tr>
                     <td> <?= $loja["id"] ?></td>
                     <td> <?= $loja["nome"] ?></td>
