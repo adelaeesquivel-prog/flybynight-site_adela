@@ -31,7 +31,7 @@ function inserirProduto
             VALUES(:nome, :decricao, :prco, :quantidade, :fornecedor_id)";
 
     $consulta = $conexao->prepare($sql);
-
+    //atribuindo os valores recebidos pela funcao para cada valor nomeado
     $consulta->bindValue(':nome', $nome);
     $consulta->bindValue(':descricao', $descricao);
     $consulta->bindValue(':preco', $preco);
@@ -40,4 +40,7 @@ function inserirProduto
 
     $consulta->execute();
 }
+
+
+
 
