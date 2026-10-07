@@ -10,22 +10,28 @@ $fornecedores = buscarFornecedores($conexao);
 //Exercicio:
 
 //1)Detectar o acionamento do formulario de inserção
-//2)Capturar os dados do formulario
-//3)chamar a funcao inserir e passar os dados para ela
-//4)Redirecionar para a pagina q mostra os produtos
-//5)cadastre pelo menos 3 produtos (invente os dados)
-
 if($_SERVER['REQUEST_METHOD'] === "POST"){
+
+//2)Capturar os dados de cada campo do formulario
+//obs:observacao e atencao sobre qual é o nome de cada campo
     $nome = $_POST ['nome'];
     $descricao = $_POST ['descricao'];
     $preco = $_POST ['preco'];
     $quantidade = $_POST ['quantidade'];
-    $fornecedor_id = $_POST ['fornecedor'];
-    inserirProduto($conexao, $nome, $descricao, $preco, $quantidade,$fornecedor_id);
+    $fornecedor = $_POST ['fornecedor'];
+
+//3)chamar a funcao inserir e passar os dados para ela
+    inserirProduto($conexao, $nome, $descricao, $preco, $quantidade,$fornecedor);
+
+//4)Redirecionar para a pagina q mostra os produtos
     header("location:listar.php");
     exit;
 }
+//5)cadastre pelo menos 3 produtos (invente os dados)
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
