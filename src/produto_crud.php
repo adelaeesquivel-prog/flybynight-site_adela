@@ -41,6 +41,40 @@ function inserirProduto
     $consulta->execute();
 }
 
+function buscarProdutoPorId(PDO $conexao, int $id):array
+{
+      $sql = "SELECT * FROM produtos WHERE id = :id";
+      $consulta = $conexao->prepare($sql);
+      $consulta->bindValue(":id" , $id);
+      return $consulta->fetch();
+}
+
+function atualizarProduto
+    (PDO $conexao,
+    int $id,
+     string $nome, 
+     string $descricao,
+     float $preco,
+     int $quantidade,
+     int $fornecedorId):void
+{
+   $sql = "UPDATE produtos SET
+              nome = :nome, descricao = :descricao,
+              preco = :preco, quantidade = :quantidade,
+              fornecedor_id = :fornecedore_id 
+           WHERE id = :id";
+
+  $consulta = $conexao->prepare($sql);
+
+  $consulta ->bindValue(":nome", $nome);
+  $consulta ->bindValue(":descricao", $descricao);
+  $consulta ->bindValue(":preco", $preco);
+  $consulta ->bindValue(":quantidade", $quantidade);
+  $consulta ->bindValue(":fornecedor_Id", $fornecedorId);
+  $consulta ->bindValue(":id", $id);
+
+  $consulta->execute();
+}
 
 
 
