@@ -14,6 +14,18 @@
 $fornecedores = buscarFornecedores($conexao);
 // 4) Chamar a função buscarProdutoPorId e receber os dados do produto (guarde em uma variavel chamada $produto)
 $produto = buscarProdutoPorId($conexao, $id);
+
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    
+    $nome = $_POST['nome'];
+    $descricao = $_POST['descricao'];
+    $preco = $_POST['preco'];
+    $quantidade = $_POST['quantidade'];
+    $fornecedorId = $_POST['fornecedorId'];
+    atualizarProduto($conexao, $id, $nome, $descricao, $preco, $quantidade, $fornecedorId);
+    header("location:listar.php");
+    exit;
+}
 ?>
 
 
