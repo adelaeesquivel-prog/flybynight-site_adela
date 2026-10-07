@@ -8,7 +8,7 @@ require_once "../src/fornecedor_crud.php";
 //Deve ser o mesmoao passsar para o $_GET.
 $id = $_GET ['id'];
 
-//1)Chamamos a função e passamos um ide pra ela
+//1)Chamamos a função e passamos um id pra ela
 //2)Ao termino, a função DEVOLVE (retorna) um array com os dados dos fornecedores
 $fornecedor = buscarFornecedorPorId($conexao, $id);
 
