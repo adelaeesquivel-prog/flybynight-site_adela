@@ -62,7 +62,7 @@ function atualizarProduto
    $sql = "UPDATE produtos SET
               nome = :nome, descricao = :descricao,
               preco = :preco, quantidade = :quantidade,
-              fornecedor_id = :fornecedore_id 
+              fornecedor_id = :fornecedor_id 
            WHERE id = :id";
 
   $consulta = $conexao->prepare($sql);
@@ -71,7 +71,7 @@ function atualizarProduto
   $consulta ->bindValue(":descricao", $descricao);
   $consulta ->bindValue(":preco", $preco);
   $consulta ->bindValue(":quantidade", $quantidade);
-  $consulta ->bindValue(":fornecedor_Id", $fornecedorId);
+  $consulta ->bindValue(":fornecedor_id", $fornecedorId);
   $consulta ->bindValue(":id", $id);
 
   $consulta->execute();

@@ -15,14 +15,17 @@ $fornecedores = buscarFornecedores($conexao);
 // 4) Chamar a função buscarProdutoPorId e receber os dados do produto (guarde em uma variavel chamada $produto)
 $produto = buscarProdutoPorId($conexao, $id);
 
+
+///1)detectar o acionamento de formulario de atualização
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     
+//capturaros daos do formulario
     $nome = $_POST['nome'];
     $descricao = $_POST['descricao'];
     $preco = $_POST['preco'];
     $quantidade = $_POST['quantidade'];
-    $fornecedorId = $_POST['fornecedorId'];
-    atualizarProduto($conexao, $id, $nome, $descricao, $preco, $quantidade, $fornecedorId);
+    $fornecedor_id = $_POST['fornecedor'];  //nome do campo <selec>
+    atualizarProduto($conexao, $id, $nome, $descricao, $preco, $quantidade, $fornecedor_id);
     header("location:listar.php");
     exit;
 }
@@ -82,8 +85,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                     programe os recursos para isso acontecer.-->
  
             <?php foreach ($fornecedores as $fornecedor): ?> 
-             <option 
-                    value="<?= $fornecedor['id'] ?>"
+             <!--  A condicional abaixo (feita dentro da tag <option>) faz com q o fornecedor do produto que esta sendo editado ja venha selecionado . a logica geral é:
+                
+                se o id do fornecedor (que vem de $fornecedor['id'] for o mesmo do que esta registrado no produto (que vem de $produto['fornecedor_id']), entao aplique o atributo 'selected'. Caso contrario não faça nada.-->
+                <option 
+                     value="<?= $fornecedor['id'] ?>"
                      <?= $fornecedor['id'] == $produto['fornecedor_id'] ? 'selected' : '' ?> >
                      <?= $fornecedor['nome'] ?>
              </option> 
