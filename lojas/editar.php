@@ -4,6 +4,7 @@ require_once "../src/loja_crud.php";
 $id = $_GET ['id'];
 $loja = buscarLojaPorId($conexao, $id);
 
+
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     
     $nome = $_POST['nome'];

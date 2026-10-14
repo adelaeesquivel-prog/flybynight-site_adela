@@ -20,8 +20,8 @@ function buscarLojasProdutos(PDO $conexao): array
     return $consulta->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function inserirLojaProduto
-     (PDO $conexao,
+function inserirLojaProduto(
+      PDO $conexao,
       int $loja_id,
       int $produto_id,
       float $estoque): void
@@ -36,3 +36,26 @@ function inserirLojaProduto
 
     $consulta->execute();
 }
+
+function buscarLojaProdutoPorId(PDO $conexao, int $loja_id , int $produto_id,int $estoque):array
+{
+      $sql = "SELECT * FROM lojas_produtos WHERE loja_id = :loja_id AND produto_id = :produto_id";
+      $consulta = $conexao->prepare($sql);
+      $consulta->bindValue(":loja_id" , $loja_id);
+      $consulta->bindValue(":produto_id" , $produto_id);
+       $consulta->bindValue(":estoque" , $estoque);
+      $consulta->execute();
+      return $consulta->fetch();
+}
+
+function atualizarLojaProduto(PDO $conexao, int $loja_id, int $produto_id ,int $estoque):void
+ {
+     $sql = "UPDATE lojasprodutos SET loja_id = :loja_id, produto_id =:produto_id,  WHERE estoque = :estoque";
+
+
+     $consulta=$conexao->prepare($sql);
+     $consulta->bindValue(":loja_id", $loja_id);
+     $consulta->bindValue(":produto_id", $produto_id);
+     $consulta->bindValue(":estoque", $estoque);
+     $consulta->execute();
+ }
