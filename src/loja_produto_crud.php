@@ -17,7 +17,7 @@ function buscarLojasProdutos(PDO $conexao): array
 
     $consulta = $conexao->query($sql);
 
-    return $consulta->fetchAll(PDO::FETCH_ASSOC);
+    return $consulta->fetchAll();
 }
 
 function inserirLojaProduto(
@@ -37,25 +37,26 @@ function inserirLojaProduto(
     $consulta->execute();
 }
 
-function buscarLojaProdutoPorId(PDO $conexao, int $loja_id , int $produto_id,int $estoque):array
+function buscarLojaProdutoPorId(PDO $conexao, int $loja_id, int $produto_id): array
 {
       $sql = "SELECT * FROM lojas_produtos WHERE loja_id = :loja_id AND produto_id = :produto_id";
       $consulta = $conexao->prepare($sql);
-      $consulta->bindValue(":loja_id" , $loja_id);
-      $consulta->bindValue(":produto_id" , $produto_id);
-       $consulta->bindValue(":estoque" , $estoque);
+      $consulta->bindValue(":loja_id", $loja_id);
+      $consulta->bindValue(":produto_id", $produto_id);
       $consulta->execute();
       return $consulta->fetch();
 }
 
-function atualizarLojaProduto(PDO $conexao, int $loja_id, int $produto_id ,int $estoque):void
+function atualizarLojaProduto(PDO $conexao, int $loja_id, int $produto_id, int $novo_produto, int $nova_loja,int $estoque): void
  {
-     $sql = "UPDATE lojasprodutos SET loja_id = :loja_id, produto_id =:produto_id,  WHERE estoque = :estoque";
 
+     $sql = "UPDATE lojas_produtos SET estoque = :estoque, nova_loja = :nova_loja, novo_produto = :novo_produto WHERE loja_id = :loja_id AND produto_id = :produto_id";
 
-     $consulta=$conexao->prepare($sql);
+     $consulta = $conexao->prepare($sql);
      $consulta->bindValue(":loja_id", $loja_id);
      $consulta->bindValue(":produto_id", $produto_id);
      $consulta->bindValue(":estoque", $estoque);
+     $consulta->bindValue(":nova_loja", $nova_loja);
+     $consulta->bindValue(":novo_produto", $novo_produto);
      $consulta->execute();
- }
+}
