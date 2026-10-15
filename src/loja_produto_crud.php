@@ -47,16 +47,23 @@ function buscarLojaProdutoPorId(PDO $conexao, int $loja_id, int $produto_id): ar
       return $consulta->fetch();
 }
 
-function atualizarLojaProduto(PDO $conexao, int $loja_id, int $produto_id, int $novo_produto, int $nova_loja,int $estoque): void
- {
-
-     $sql = "UPDATE lojas_produtos SET estoque = :estoque, nova_loja = :nova_loja, novo_produto = :novo_produto WHERE loja_id = :loja_id AND produto_id = :produto_id";
-
-     $consulta = $conexao->prepare($sql);
-     $consulta->bindValue(":loja_id", $loja_id);
-     $consulta->bindValue(":produto_id", $produto_id);
-     $consulta->bindValue(":estoque", $estoque);
-     $consulta->bindValue(":nova_loja", $nova_loja);
-     $consulta->bindValue(":novo_produto", $novo_produto);
-     $consulta->execute();
+function atualizarLojaProduto(PDO $conexao, int $loja_id, int $produto_id, int $novaLoja, int $novoProduto, int $estoque): void
+{
+    $sql = "UPDATE lojas_produtos
+            SET estoque = :estoque, loja_id = :nova_loja, produto_id = :novo_produto
+            WHERE loja_id = :loja_id AND produto_id = :produto_id";
+ 
+    $consulta = $conexao->prepare($sql);
+ 
+    
+    $consulta->bindValue(":estoque", $estoque);
+    $consulta->bindValue(":nova_loja", $novaLoja);
+    $consulta->bindValue(":novo_produto", $novoProduto);
+ 
+    
+    $consulta->bindValue(":loja_id", $loja_id);
+    $consulta->bindValue(":produto_id", $produto_id);
+   
+    $consulta->execute();
 }
+ 

@@ -2,33 +2,33 @@
 require_once "../src/loja_produto_crud.php";
 require_once "../src/loja_crud.php";
 require_once "../src/produto_crud.php";
-
-$loja_id = $_GET['loja_id'] ;
-$produto_id = $_GET['produto_id'] ;
-
-if (!$loja_id || !$produto_id) {
-    header("location:listar.php");
-    exit;
-}
-$lojaproduto = buscarLojaProdutoPorId($conexao, $loja_id, $produto_id);
-
-if (!$lojaproduto) {
-    header("location:listar.php");
-    exit;
-}
-
-$lojas = buscarLojas($conexao);
+ 
+// parametros iniciais (qual registro está sendo editado)
+$loja_id = $_GET['loja_id'];
+$produto_id = $_GET['produto_id'];
+ 
 $produtos = buscarProdutos($conexao);
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nova_loja= $_POST['nova_loja'];
-    $novo_produto = $_POST['novo_produto'];
+$lojas = buscarLojas($conexao);
+$lojaProduto = buscarLojaProdutoPorId($conexao, $loja_id, $produto_id);
+ 
+ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $novaLoja = $_POST['loja'];
+    $novoProduto = $_POST['produto'];
     $estoque = $_POST['estoque'];
-    atualizarLojaProduto($conexao, $nova_loja, $novo_produto, $estoque);
-    
-    header("location:listar.php");
+
+    atualizarLojaProduto(
+        $conexao,
+        $loja_id,
+        $produto_id,
+        $novaLoja,
+        $novoProduto,
+        $estoque
+    );
+
+    header("location: listar.php");
     exit;
 }
+ 
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <option value="">Selecione</option>
                     <?php foreach ($lojas as $loja): ?>
                         <option value="<?= $loja['id'] ?>"
-                            <?= ($loja['id'] == $lojaproduto['loja_id']) ? 'selected' : '' ?>>
+                            <?= ($loja['id'] == $lojaProduto['loja_id']) ? 'selected' : '' ?>>
                             <?= $loja['nome'] ?>
                         </option>
                     <?php endforeach; ?>
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                    <option value="">Selecione</option>
                    <?php foreach ($produtos as $produto): ?>
                        <option value="<?= $produto['id'] ?>"
-                        <?= ($produto['id'] == $lojaproduto['produto_id']) ? 'selected' : '' ?>>
+                        <?= ($produto['id'] == $lojaProduto['produto_id']) ? 'selected' : '' ?>>
                         <?= $produto['nome_produto'] ?>
                        </option>
                    <?php endforeach; ?>
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div>
                 <label for="estoque">Estoque:</label>
                 <input type="number" name="estoque" id="estoque" min="0" step="1" 
-                       value="<?= $lojaproduto['estoque'] ?>" required>
+                       value="<?= $lojaProduto['estoque'] ?>" required>
             </div>
 
             <button type="submit">Atualizar</button>
