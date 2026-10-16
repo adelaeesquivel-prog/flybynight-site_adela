@@ -67,3 +67,12 @@ function atualizarLojaProduto(PDO $conexao, int $loja_id, int $produto_id, int $
     $consulta->execute();
 }
  
+function excluirLojaProduto(PDO $conexao, int $loja_id, int $produto_id): void
+{
+    $sql = "DELETE FROM lojas_produtos WHERE loja_id = :loja_id AND produto_id = :produto_id";
+    
+    $consulta = $conexao->prepare($sql);
+    $consulta->bindValue(":loja_id", $loja_id);
+    $consulta->bindValue(":produto_id", $produto_id);
+    $consulta->execute();
+}
